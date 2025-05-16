@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "165200747868",
+    "project_id": "skyvo-7ee8e",
+    "storage_bucket": "skyvo-7ee8e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:165200747868:android:b874f6bd535ee17bdd3599",
+        "android_client_info": {
+          "package_name": "com.example.rentit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "165200747868-1rfjn7lpl49edmreobe2n61eemngcbs9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRimzSrt88w4VnxCwYPjDHU1vOjdXnKs0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "165200747868-1rfjn7lpl49edmreobe2n61eemngcbs9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "165200747868-bl7dtcubihuangeq21vah59bib84pn4p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.skyvo"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

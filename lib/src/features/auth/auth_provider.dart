@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:rentit/src/common/const/global_variable.dart';
 import 'package:rentit/src/common/const/static_data.dart';
+import 'package:rentit/src/common/model/user_authentication_model.dart';
 import 'package:rentit/src/common/utils/shared_preference_helper.dart';
 import 'package:rentit/src/common/widgets/custom_snackbar.dart';
 import 'package:rentit/src/features/auth/auth_repository.dart';
@@ -155,8 +158,8 @@ class AuthenticationProvider extends ChangeNotifier {
     }
   }
 
-  //! ################### GET USER DATA ###################
-  Future<void> getUserData({
+  //! ################### GET ADMIN DATA ###################
+  Future<void> getAdminData({
     required BuildContext context,
     required String id,
   }) async {
@@ -211,7 +214,7 @@ class AuthenticationProvider extends ChangeNotifier {
           CustomSnackbar.error(context: context, message: error);
         },
         (userModel) {
-          getUserData(context: context, id: id);
+          getAdminData(context: context, id: id);
 
           Navigator.pop(context);
           CustomSnackbar.success(
@@ -229,5 +232,24 @@ class AuthenticationProvider extends ChangeNotifier {
       }
       notifyListeners();
     }
+  }
+
+  //! ################### GET USER BY ID ###################
+  Future<UserAuthenticationModel?> getUserById({required String id}) async {
+    try {
+      final result = await _authRepository.getUserById(id: id);
+      return result.fold(
+        (error) {
+          log(error);
+          return null;
+        },
+        (userModel) {
+          return userModel;
+        },
+      );
+    } catch (e) {
+      log(e.toString());
+    }
+    return null;
   }
 }

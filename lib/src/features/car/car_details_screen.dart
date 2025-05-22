@@ -1,11 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rentit/src/common/const/global_variable.dart';
 import 'package:rentit/src/common/model/car_model.dart';
 import 'package:rentit/src/common/widgets/custom_back_button.dart';
-import 'package:rentit/src/features/booking/add_booking_screen.dart';
+import 'package:rentit/src/common/widgets/custom_dialog.dart';
+import 'package:rentit/src/features/car/car_provider.dart';
 import 'package:rentit/src/features/car/car_widget.dart';
+import 'package:rentit/src/features/car/edit_car_screen.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CarDetailsScreen extends StatefulWidget {
@@ -24,6 +27,55 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
         leading: CustomBackButton(onTap: () => Navigator.of(context).pop()),
         title: Text("Overview"),
         centerTitle: true,
+        actions: [
+          InkWell(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder:
+                      (context) => EditCarScreen(carModel: widget.carModel),
+                ),
+              );
+            },
+            child: Container(
+              padding: const EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                color: Colors.black,
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(Icons.edit, color: Colors.white, size: 16),
+            ),
+          ),
+          SizedBox(width: 4),
+
+          InkWell(
+            onTap: () {
+              CustomDialog.deleteConfirmationDialog(
+                context: context,
+                content: "Do you really want to delete this car?",
+                onDelete: () {
+                  final provider = Provider.of<CarProvider>(
+                    context,
+                    listen: false,
+                  );
+                  provider.deleteCar(
+                    carId: widget.carModel.id,
+                    context: context,
+                  );
+                },
+              );
+            },
+            child: Container(
+              padding: const EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                color: Colors.red,
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(Icons.delete, color: Colors.white, size: 16),
+            ),
+          ),
+          const SizedBox(width: 8),
+        ],
       ),
       body: Column(
         children: [
@@ -176,56 +228,41 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                   ),
                 ),
               )
-              : InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder:
-                          (context) =>
-                              AddBookingScreen(carModel: widget.carModel),
-                    ),
-                  );
-                },
-                child: Container(
-                  width: double.infinity,
-                  height: 55,
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
+              : Container(
+                width: double.infinity,
+                height: 55,
+                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
 
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  child: Center(
-                    child: RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: "Rs. ",
-                            style: txtTheme(context).bodyMedium!.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: Center(
+                  child: RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: "Rs. ",
+                          style: txtTheme(context).bodyMedium!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
                           ),
-                          TextSpan(
-                            text: widget.carModel.pricePerDay.toString(),
-                            style: txtTheme(context).titleMedium!.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
+                        ),
+                        TextSpan(
+                          text: widget.carModel.pricePerDay.toStringAsFixed(0),
+                          style: txtTheme(context).titleMedium!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
                           ),
-                          TextSpan(
-                            text: " / day",
-                            style: txtTheme(context).bodyMedium!.copyWith(
-                              color: Colors.white,
-                              fontSize: 10,
-                            ),
+                        ),
+                        TextSpan(
+                          text: " / day",
+                          style: txtTheme(context).bodyMedium!.copyWith(
+                            color: Colors.white,
+                            fontSize: 10,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),

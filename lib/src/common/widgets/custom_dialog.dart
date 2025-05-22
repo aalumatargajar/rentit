@@ -77,6 +77,7 @@ class CustomDialog {
             content: Text(content),
             actions: [
               CustomElevatedButton(
+                height: 40,
                 width: 70,
                 backgroundColor: Colors.grey,
                 onPressed: () {
@@ -85,7 +86,9 @@ class CustomDialog {
                 text: "No",
               ),
               CustomElevatedButton(
+                height: 40,
                 width: 70,
+                backgroundColor: Colors.red,
                 onPressed: onDelete,
                 text: "Delete",
               ),

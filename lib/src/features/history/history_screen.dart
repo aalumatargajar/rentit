@@ -21,10 +21,9 @@ class HistoryScreen extends StatefulWidget {
 class _HistoryScreenState extends State<HistoryScreen> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   Query query() {
-    final today = DateTime.now();
     return _firestore
         .collection('booking')
-        .where('endDate', isLessThan: today.toIso8601String());
+        .where('endDate', isLessThan: DateTime.now());
   }
 
   Future<CarModel?> getCarById({required String carId}) async {
@@ -35,6 +34,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: const Text('History'), centerTitle: true),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: FirestorePagination(
@@ -198,7 +198,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                         ),
                                       ),
                                       TextSpan(
-                                        text: booking.totalPrice.toString(),
+                                        text: booking.totalPrice
+                                            .toStringAsFixed(0),
                                         style: txtTheme(
                                           context,
                                         ).titleSmall!.copyWith(

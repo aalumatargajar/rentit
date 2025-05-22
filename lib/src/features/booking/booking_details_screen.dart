@@ -344,14 +344,16 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                           ),
                         ),
                         TextSpan(
-                          text: widget.bookingModel.totalPrice.toString(),
+                          text: widget.bookingModel.totalPrice.toStringAsFixed(
+                            0,
+                          ),
                           style: txtTheme(context).titleMedium!.copyWith(
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
                         ),
                         TextSpan(
-                          text: "/ $totalDays days",
+                        text: "/ $totalDays days",
                           style: txtTheme(context).bodyMedium!.copyWith(
                             color: Colors.white,
                             fontSize: 10,

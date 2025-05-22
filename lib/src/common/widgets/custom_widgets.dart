@@ -133,7 +133,15 @@ class CustomWidgets {
                 isDense: true,
                 fillColor: Colors.white,
                 contentPadding: EdgeInsets.symmetric(vertical: 12),
-                border: InputBorder.none,
+
+                border: OutlineInputBorder(),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black26),
+                ),
+                errorBorder: OutlineInputBorder(),
+                focusedBorder: OutlineInputBorder(),
+                disabledBorder: OutlineInputBorder(),
+                focusedErrorBorder: OutlineInputBorder(),
               ),
               items:
                   itemsList.map<DropdownMenuItem<String>>((String value) {

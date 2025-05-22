@@ -11,6 +11,7 @@ import 'package:rentit/src/features/booking/booking_provider.dart';
 import 'package:rentit/src/features/bottom_nav/bottom_navbar_provider.dart';
 import 'package:rentit/src/features/brands/brands_provider.dart';
 import 'package:rentit/src/features/car/car_provider.dart';
+import 'package:rentit/src/features/notifications/notification_provider.dart';
 import 'package:rentit/src/features/splash_screen.dart';
 import 'package:rentit/src/theme/theme.dart';
 
@@ -28,6 +29,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => BrandsProvider()),
         ChangeNotifierProvider(create: (context) => CarProvider()),
         ChangeNotifierProvider(create: (context) => BookingProvider()),
+        ChangeNotifierProvider(create: (context) => NotificationProvider()),
       ],
       child: const MyApp(),
     ),

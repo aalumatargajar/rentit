@@ -73,6 +73,43 @@ class CarRepository {
     }
   }
 
+  //! -------------------------- UPDATE CAR -------------------------- //!
+  Future<Either<String, CarModel>> updateCar({
+    required String carId,
+    required CarModel updatedCar,
+  }) async {
+    try {
+      final carsCollection = _firestore.collection('cars');
+      final docSnapshot = await carsCollection.doc(carId).get();
+      if (!docSnapshot.exists) {
+        return const Left('Car not found');
+      }
+
+      // Update the car data in Firestore
+      await carsCollection.doc(carId).update(updatedCar.toJson());
+      return Right(updatedCar);
+    } catch (e) {
+      return Left(e.toString());
+    }
+  }
+
+  //! -------------------------- DELETE CAR -------------------------- //!
+  Future<Either<String, String>> deleteCar({required String carId}) async {
+    try {
+      final carsCollection = _firestore.collection('cars');
+      final docSnapshot = await carsCollection.doc(carId).get();
+      if (!docSnapshot.exists) {
+        return const Left('Car not found');
+      }
+
+      // Delete the car document from Firestore
+      await carsCollection.doc(carId).delete();
+      return const Right('Car deleted successfully');
+    } catch (e) {
+      return Left(e.toString());
+    }
+  }
+
   //! -------------------------- UPDATE CAR STATUS -------------------------- //!
   Future<Either<String, String>> updateCarStatus({
     required String carId,

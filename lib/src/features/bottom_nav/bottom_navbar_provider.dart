@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rentit/src/features/booking/booking_screen.dart';
 import 'package:rentit/src/features/history/history_screen.dart';
 import 'package:rentit/src/features/home/home_screen.dart';
+import 'package:rentit/src/features/notifications/notifications_screen.dart';
 import 'package:rentit/src/features/profile/profile_screen.dart';
 
 class BottomNavbarProvider extends ChangeNotifier {
@@ -11,6 +12,7 @@ class BottomNavbarProvider extends ChangeNotifier {
     const HomeScreen(),
     const BookingScreen(),
     const HistoryScreen(),
+    NotificationsScreen(),
     const ProfileScreen(),
   ];
 

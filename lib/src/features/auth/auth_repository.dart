@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:rentit/src/common/model/admin_authentication_model.dart';
+import 'package:rentit/src/common/model/user_authentication_model.dart';
 
 class AuthRepository {
   final _firebaseAuth = FirebaseAuth.instance;
@@ -117,6 +118,19 @@ class AuthRepository {
       return Right(AdminAuthenticationModel.fromJson(userDoc.data()!));
     } catch (e) {
       log("Update Admin Data Error: $e");
+      return Left(e.toString());
+    }
+  }
+
+  //! ################### GET USER BY ID ###################
+  Future<Either<String, UserAuthenticationModel>> getUserById({
+    required String id,
+  }) async {
+    try {
+      final userDoc = await _firestore.collection('users').doc(id).get();
+      return Right(UserAuthenticationModel.fromJson(userDoc.data()!));
+    } catch (e) {
+      log("Get User By ID Error: $e");
       return Left(e.toString());
     }
   }

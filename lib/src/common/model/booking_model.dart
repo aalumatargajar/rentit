@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class BookingModel {
   final String id;
   final String carId;
@@ -28,13 +30,13 @@ class BookingModel {
       id: json['id'] as String,
       carId: json['carId'] as String,
       userId: json['userId'] as String,
-      startDate: DateTime.parse(json['startDate'] as String),
-      endDate: DateTime.parse(json['endDate'] as String),
+      startDate: (json['startDate'] as Timestamp).toDate(),
+      endDate: (json['endDate'] as Timestamp).toDate(),
       totalPrice: (json['totalPrice'] as num).toDouble(),
       startLocation: json['startLocation'] as String,
       destination: json['destination'] as String,
-      createdAt: DateTime.parse(json['createdAt'] as String),
-      updatedAt: DateTime.parse(json['updatedAt'] as String),
+      createdAt: (json['createdAt'] as Timestamp).toDate(),
+      updatedAt: (json['updatedAt'] as Timestamp).toDate(),
     );
   }
 
@@ -43,16 +45,15 @@ class BookingModel {
       'id': id,
       'carId': carId,
       'userId': userId,
-      'startDate': startDate.toIso8601String(),
-      'endDate':
-          endDate
-              .add(Duration(hours: 23, minutes: 59, seconds: 59))
-              .toIso8601String(),
+      'startDate': Timestamp.fromDate(startDate),
+      'endDate': Timestamp.fromDate(
+        endDate.add(Duration(hours: 23, minutes: 59, seconds: 59)),
+      ),
       'totalPrice': totalPrice,
       'startLocation': startLocation,
       'destination': destination,
-      'createdAt': createdAt.toIso8601String(),
-      'updatedAt': updatedAt.toIso8601String(),
+      'createdAt': Timestamp.fromDate(createdAt),
+      'updatedAt': Timestamp.fromDate(updatedAt),
     };
   }
 
@@ -83,29 +84,29 @@ class BookingModel {
   }
 }
 
-List<BookingModel> dummyBookingList = [
-  BookingModel(
-    id: '1',
-    carId: '1',
-    userId: 'user1',
-    startDate: DateTime.now(),
-    endDate: DateTime.now().add(Duration(days: 3)),
-    totalPrice: 3000.0,
-    startLocation: 'Location A',
-    destination: 'Location B',
-    createdAt: DateTime.now(),
-    updatedAt: DateTime.now(),
-  ),
-  BookingModel(
-    id: '2',
-    carId: '2',
-    userId: 'user2',
-    startDate: DateTime.now(),
-    endDate: DateTime.now().add(Duration(days: 5)),
-    totalPrice: 5000.0,
-    startLocation: 'Location C',
-    destination: 'Location D',
-    createdAt: DateTime.now(),
-    updatedAt: DateTime.now(),
-  ),
-];
+// List<BookingModel> dummyBookingList = [
+//   BookingModel(
+//     id: '1',
+//     carId: '1',
+//     userId: 'user1',
+//     startDate: DateTime.now(),
+//     endDate: DateTime.now().add(Duration(days: 3)),
+//     totalPrice: 3000.0,
+//     startLocation: 'Location A',
+//     destination: 'Location B',
+//     createdAt: DateTime.now(),
+//     updatedAt: DateTime.now(),
+//   ),
+//   BookingModel(
+//     id: '2',
+//     carId: '2',
+//     userId: 'user2',
+//     startDate: DateTime.now(),
+//     endDate: DateTime.now().add(Duration(days: 5)),
+//     totalPrice: 5000.0,
+//     startLocation: 'Location C',
+//     destination: 'Location D',
+//     createdAt: DateTime.now(),
+//     updatedAt: DateTime.now(),
+//   ),
+// ];

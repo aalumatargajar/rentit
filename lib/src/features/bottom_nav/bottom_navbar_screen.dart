@@ -4,6 +4,7 @@ import 'package:rentit/src/common/const/global_variable.dart';
 import 'package:rentit/src/common/const/static_data.dart';
 import 'package:rentit/src/features/auth/auth_provider.dart';
 import 'package:rentit/src/features/bottom_nav/bottom_navbar_provider.dart';
+import 'package:rentit/src/features/notifications/notification_repository.dart';
 
 class BottomNavbarScreen extends StatefulWidget {
   const BottomNavbarScreen({super.key});
@@ -27,7 +28,7 @@ class _BottomNavbarScreenState extends State<BottomNavbarScreen> {
           context,
           listen: false,
         );
-        provider.getUserData(context: context, id: StaticData.id);
+        provider.getAdminData(context: context, id: StaticData.id);
       });
     }
   }
@@ -195,6 +196,73 @@ class _BottomNavbarScreenState extends State<BottomNavbarScreen> {
                     BottomNavigationBarItem(
                       icon:
                           bottomNavProvider.currentIndex == 3
+                              ? Container(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                  vertical: 4,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Icon(
+                                  Icons.notifications,
+                                  size: 20,
+                                  color: colorScheme(context).primary,
+                                ),
+                              )
+                              : SizedBox(
+                                width: 28,
+                                height: 25,
+                                child: Stack(
+                                  alignment: Alignment.center,
+
+                                  children: [
+                                    Icon(
+                                      Icons.notifications_outlined,
+
+                                      size: 20,
+                                      color: Colors.white,
+                                    ),
+                                    StreamBuilder(
+                                      stream:
+                                          NotificationRepository.getUnreadNotificationsCount(),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.hasData) {
+                                          final count = snapshot.data ?? 0;
+                                          if (count == 0) {
+                                            return const SizedBox();
+                                          }
+                                          return Positioned(
+                                            top: 0,
+                                            right: 0,
+                                            child: CircleAvatar(
+                                              radius: 7,
+                                              backgroundColor:
+                                                  colorScheme(context).error,
+                                              child: Text(
+                                                count > 99 ? '99+' : '$count',
+                                                style: txtTheme(
+                                                  context,
+                                                ).labelSmall?.copyWith(
+                                                  color: Colors.white,
+                                                  fontSize: 8,
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                        return const SizedBox();
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                      label: '',
+                    ),
+                    BottomNavigationBarItem(
+                      icon:
+                          bottomNavProvider.currentIndex == 4
                               ? Container(
                                 padding: EdgeInsets.symmetric(
                                   horizontal: 8,

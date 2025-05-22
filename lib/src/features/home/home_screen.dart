@@ -358,7 +358,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                       ),
                                       TextSpan(
-                                        text: car.pricePerDay.toString(),
+                                        text: car.pricePerDay.toStringAsFixed(
+                                          0,
+                                        ),
                                         style: txtTheme(
                                           context,
                                         ).labelLarge!.copyWith(

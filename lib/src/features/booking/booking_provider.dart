@@ -8,7 +8,7 @@ import 'package:rentit/src/features/car/car_provider.dart';
 
 class BookingProvider extends ChangeNotifier {
   final BookingRepository _bookingRepository = BookingRepository();
-  final List<BookingModel> _bookingList = dummyBookingList;
+  final List<BookingModel> _bookingList = [];
   List<BookingModel> get bookingList => _bookingList;
 
   //! ----------------- ADD BOOKING -----------------
@@ -44,18 +44,50 @@ class BookingProvider extends ChangeNotifier {
     }
   }
 
-  //! --------------- UPDATE BOOKING ---------------
-  void updateBooking({
-    required BookingModel booking,
-    required Function() onSuccess,
-  }) {
-    int index = _bookingList.indexWhere((b) => b.id == booking.id);
-    if (index != -1) {
-      _bookingList[index] = booking;
-      onSuccess();
-      notifyListeners();
-    }
-  }
+  // //! --------------- UPDATE BOOKING ---------------
+  // Future<void> updateBooking({
+  //   required BookingModel booking,
+  //   required BuildContext context,
+  //   required Function() onSuccess,
+  // }) async {
+  //   context.loaderOverlay.show();
+  //   notifyListeners();
+  //   try {
+  //     final result = await _bookingRepository.updateBooking(booking: booking);
+  //     result.fold(
+  //       (error) {
+  //         CustomSnackbar.error(context: context, message: error);
+  //       },
+  //       (success) {
+  //         final carProvider = Provider.of<CarProvider>(context, listen: false);
+  //         carProvider.updateCarStatus(
+  //           carId: booking.carId,
+  //           isBooked: true,
+  //           context: context,
+  //         );
+  //         CustomSnackbar.success(context: context, message: success);
+  //         onSuccess();
+  //       },
+  //     );
+  //   } catch (e) {
+  //     CustomSnackbar.error(context: context, message: e.toString());
+  //   } finally {
+  //     context.loaderOverlay.hide();
+  //     notifyListeners();
+  //   }
+  // }
+
+  // void updateBooking({
+  //   required BookingModel booking,
+  //   required Function() onSuccess,
+  // }) {
+  //   int index = _bookingList.indexWhere((b) => b.id == booking.id);
+  //   if (index != -1) {
+  //     _bookingList[index] = booking;
+  //     onSuccess();
+  //     notifyListeners();
+  //   }
+  // }
 
   //! --------------- DELETE BOOKING ---------------
   void deleteBooking({required String id, required Function() onSuccess}) {

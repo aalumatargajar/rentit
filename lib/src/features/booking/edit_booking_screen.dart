@@ -350,22 +350,22 @@ class _EditBookingScreenState extends State<EditBookingScreen> {
                   updatedAt: DateTime.now(),
                 );
 
-                final provider = Provider.of<BookingProvider>(
-                  context,
-                  listen: false,
-                );
-                provider.updateBooking(
-                  booking: bookingModel,
-                  onSuccess: () {
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                    final bottomNavProvider = Provider.of<BottomNavbarProvider>(
-                      context,
-                      listen: false,
-                    );
-                    bottomNavProvider.changeIndex(index: 1);
-                  },
-                );
+                // final provider = Provider.of<BookingProvider>(
+                //   context,
+                //   listen: false,
+                // );
+                // provider.updateBooking(
+                //   booking: bookingModel,
+                //   onSuccess: () {
+                //     Navigator.pop(context);
+                //     Navigator.pop(context);
+                //     final bottomNavProvider = Provider.of<BottomNavbarProvider>(
+                //       context,
+                //       listen: false,
+                //     );
+                //     bottomNavProvider.changeIndex(index: 1);
+                //   },
+                // );
               } else {}
             },
             child: Container(
